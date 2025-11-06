@@ -2,6 +2,7 @@
 #include <cstdlib>
 #include <ctime>
 #include <vector>
+#include "variables.hpp"
 
 #ifndef HELPER
 #define HELPER
@@ -62,5 +63,60 @@ void spawnX(std::vector<std::vector<int>>& grid,int x) {
                 int c = (rand() % cols);
                 grid[r][c] = 1;
         }
+}
+void render_grid(std::vector<std::vector<int>>& grid){
+        ClearBackground(BG_COLOR);
+        Rectangle square = GetShapesTextureRectangle();
+        square.height=square.width=CELL_SIZE;
+        for (int i = 0; i < ROWS; i++) {
+                for (int j = 0; j < COLS; j++) {
+                        square.x = i*(CELL_SIZE) + (i+1)*MARGIN;
+                        square.y = j*(CELL_SIZE) + (j+1)*MARGIN ;
+                        if(grid[i][j]){
+                                DrawRectangleRounded(square,ROUNDED,CELL_SIZE,LIVING);
+                        }
+                        else{
+                                DrawRectangleRounded(square,ROUNDED,CELL_SIZE,DEAD);
+                        }
+                }
+        }
+}
+#endif
+
+#ifndef USER_INPUT
+#define USER_INPUT
+
+
+void change_cell(std::vector<std::vector<int>>& grid,int state){
+        Vector2 location = GetMousePosition();
+        int x = (location.x)/(CELL_SIZE+MARGIN);
+        int y = (location.y)/(CELL_SIZE+MARGIN);
+        if(x>=0 && x<grid[0].size() && y>=0 && y<grid.size()){
+                grid[x][y] = state;
+        }
+}
+
+void take_grid_pos(std::vector<std::vector<int>>& grid){
+        SetTargetFPS(INPUT_FPS);
+        while(!WindowShouldClose()){
+                BeginDrawing();
+                if(IsKeyPressed(KEY_ENTER) || IsKeyPressed(KEY_F)){
+                        break;
+                }
+                if(IsKeyPressed(QUIT)){
+                        EndDrawing();
+                        CloseWindow();
+                        exit(0);
+                }
+                if(IsMouseButtonDown(MOUSE_BUTTON_LEFT)){
+                        change_cell(grid,1);
+                }
+                if(IsMouseButtonDown(MOUSE_BUTTON_RIGHT)){
+                        change_cell(grid,0);
+                }
+                render_grid(grid);
+                EndDrawing();
+        }
+        SetTargetFPS(FPS);
 }
 #endif
