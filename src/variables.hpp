@@ -1,9 +1,11 @@
 #ifndef VARIABLES
 #define VARIABLES
-#define LIVING CLITERAL(Color){203,166,247,255}
-#define DEAD CLITERAL(Color){88,91,112,255}
-#define BG_COLOR CLITERAL(Color){ 30, 30, 46, 255}
-#define FPS 60
+#define LIVING CLITERAL(Color){203, 166, 247, 255}
+#define DEAD CLITERAL(Color){88, 91, 112, 255}
+#define BG_COLOR CLITERAL(Color){30, 30, 46, 255}
+#define PRED_LIVING CLITERAL(Color){203, 166, 247, 55}
+#define PRED_DEAD CLITERAL(Color){88, 91, 112, 55}
+#define FPS 100
 #define INPUT_FPS 120
 #define CELL_SIZE 10
 #define MARGIN 3
