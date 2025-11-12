@@ -28,19 +28,26 @@ void DrawHelpDialog() {
         DrawRectangleRounded(borderRect, DIALOG_ROUNDNESS, 10, border);
         DrawRectangleRounded(box, DIALOG_ROUNDNESS, 10, bg);
 
-        float textX = box.x + DIALOG_PADDING;
+        int heading_offset = 40;
+        float textX = box.x + DIALOG_PADDING + heading_offset;
         float textY = box.y + DIALOG_PADDING;
-        DrawText("Controls:", textX, textY, 18, text);
+        DrawText("Controls :", textX-heading_offset, textY, 18, text);
+        textY += 25;
+        DrawText("Edit Mode Commands :", textX-heading_offset, textY, 18, text);
         textY += 25;
         DrawText("Mouse Left - Add Cell", textX, textY, 16, text);
         textY += 20;
         DrawText("Mouse Right - Kill Cell", textX, textY, 16, text);
         textY += 20;
+        DrawText("D - Run Mode", textX, textY, 16, text);
+        textY += 20;
+        DrawText("Run Mode Commands :", textX-heading_offset, textY, 16, text);
+        textY += 20;
         DrawText("SPACE - Pause / Resume", textX, textY, 16, text);
         textY += 20;
         DrawText("E - Edit Mode", textX, textY, 16, text);
         textY += 20;
-        DrawText("D - Run Mode", textX, textY, 16, text);
+        DrawText("Common Commands :", textX-heading_offset, textY, 16, text);
         textY += 20;
         DrawText("R - Clear Grid", textX, textY, 16, text);
         textY += 20;
@@ -50,7 +57,6 @@ void DrawHelpDialog() {
         textY += 20;
         DrawText("Q - Quit", textX, textY, 16, text);
 }
-
 void UpdateHelpDialog() {
         if (inEditMode)
                 return;
