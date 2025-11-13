@@ -803,6 +803,7 @@ CMakeFiles/my_game.dir/src/main.cpp.o: src/main.cpp \
   src/camera.cpp \
   src/helper.cpp \
   src/rendering.cpp \
+  src/start_screen.cpp \
   src/variables.hpp
 
 
@@ -1049,6 +1050,8 @@ src/rendering.cpp:
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__algorithm/unwrap_range.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/functional:
+
+src/start_screen.cpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_gid_t.h:
 

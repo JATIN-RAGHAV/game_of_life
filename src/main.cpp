@@ -2,6 +2,7 @@
 #include "helper.cpp"
 #include "rendering.cpp"
 #include "raylib.h"
+#include "start_screen.cpp"
 #include "variables.hpp"
 #include <cstdlib>
 #include <ctime>
@@ -13,6 +14,7 @@ int main(void) {
         std::vector grid(ROWS, std::vector<int>(COLS));
         int rate = 1;
         SetTargetFPS(FPS);
+        show_start_screen(screenWidth, screenHeight);
         double time = 0;
         Camera2D camera;
         init_camera(camera);
