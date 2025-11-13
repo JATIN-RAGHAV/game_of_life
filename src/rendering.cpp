@@ -38,6 +38,8 @@ void DrawHelpDialog() {
         textY += 20;
         DrawText("Mouse Right - Kill Cell", textX, textY, 16, text);
         textY += 20;
+        DrawText("T - Start Prediction", textX, textY, 16, text);
+        textY += 20;
         DrawText("D - Run Mode", textX, textY, 16, text);
         textY += 20;
         DrawText("Run Mode Commands :", textX-heading_offset, textY, 16, text);

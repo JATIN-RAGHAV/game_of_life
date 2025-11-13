@@ -11,7 +11,7 @@
 #ifndef HELPER
 #define HELPER
 bool editing = false;
-
+bool prediction = false;
 void updMap(std::vector<std::vector<int>> &grid) {
         int rows = grid.size();
         int cols = grid[0].size();
@@ -145,11 +145,11 @@ Camera2D& camera;
 };
 void handle_cursor(grids grids){
         while(editing){
-                if (IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
+                if (IsMouseButtonDown(MOUSE_BUTTON_LEFT) && !IsKeyDown(KEY_LEFT_SHIFT) && !IsKeyDown(KEY_RIGHT_SHIFT)) {
                         get_cursor_pos(grids.grid, 1,grids.camera);
                         grids.pred_grid = grids.grid;
                 }
-                if (IsMouseButtonDown(MOUSE_BUTTON_RIGHT)) {
+                if (IsMouseButtonDown(MOUSE_BUTTON_RIGHT) && !IsKeyDown(KEY_LEFT_SHIFT) && !IsKeyDown(KEY_RIGHT_SHIFT)) {
                         get_cursor_pos(grids.grid, 0,grids.camera);
                         grids.pred_grid = grids.grid;
                 }
@@ -169,12 +169,23 @@ void edit_mode(std::vector<std::vector<int>>& grid,Camera2D& camera){
                 if(reset_random(grid)){
                         pred_grid = grid;
                 }
-                updMap(pred_grid);
+                if(prediction){
+                        updMap(pred_grid);
+                }
                 if(IsKeyPressed(KEY_D)){
                         editing = false;
                         break;
                 }
-                render_pred_grid(grid,pred_grid,camera);
+                if(IsKeyPressed(KEY_T)){
+                        prediction = !prediction;
+                        pred_grid = grid;
+                }
+                if(prediction){
+                        render_pred_grid(grid,pred_grid,camera);
+                }
+                else{
+                        render_grid(grid, camera);
+                }
         }
         editing = false;
         SetTargetFPS(FPS);
