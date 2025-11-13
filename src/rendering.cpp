@@ -2,7 +2,6 @@
 #include "variables.hpp"
 #include <cstdlib>
 #include <ctime>
-#include <iostream>
 #include <vector>
 
 #ifndef RENDER
@@ -81,10 +80,11 @@ void UpdateHelpDialog() {
 Shader bloom;
 RenderTexture2D target;
 Rectangle square = GetShapesTextureRectangle();
-void render_grid(std::vector<std::vector<int>> &grid) {
+void render_grid(std::vector<std::vector<int>> &grid,Camera2D& camera) {
         square.height = square.width = CELL_SIZE;
         BeginDrawing();
-        BeginTextureMode(target);
+        ClearBackground(BG_COLOR);
+        BeginMode2D(camera);
         for (int i = 0; i < COLS; i++) {
                 for (int j = 0; j < ROWS; j++) {
                         square.x = i * (CELL_SIZE) + (i + 1) * MARGIN;
@@ -96,21 +96,16 @@ void render_grid(std::vector<std::vector<int>> &grid) {
                         }
                 }
         }
-        EndTextureMode();
-        BeginShaderMode(bloom);
-        DrawTextureRec(target.texture,
-                       (Rectangle){0, 0, (float)target.texture.width,
-                       (float)-target.texture.height},
-                       (Vector2){0, 0}, WHITE);
-        EndShaderMode();
+        EndMode2D();
         UpdateHelpDialog();
         EndDrawing();
 }
 
-void render_pred_grid(std::vector<std::vector<int>> &grid,std::vector<std::vector<int>>& pred_grid) {
+void render_pred_grid(std::vector<std::vector<int>> &grid,std::vector<std::vector<int>>& pred_grid,Camera2D& camera) {
         square.height = square.width = CELL_SIZE;
         BeginDrawing();
-        BeginTextureMode(target);
+        ClearBackground(BG_COLOR);
+        BeginMode2D(camera);
         for (int i = 0; i < COLS; i++) {
                 for (int j = 0; j < ROWS; j++) {
                         square.x = i * (CELL_SIZE) + (i + 1) * MARGIN;
@@ -126,34 +121,15 @@ void render_pred_grid(std::vector<std::vector<int>> &grid,std::vector<std::vecto
                 for (int j = 0; j < ROWS; j++) {
                         square.x = i * (CELL_SIZE) + (i + 1) * MARGIN;
                         square.y = j * (CELL_SIZE) + (j + 1) * MARGIN;
-                        if (pred_grid[i][j] == 2) {
-                                DrawRectangleRounded(square, ROUNDED, CELL_SIZE, PRED_DEADR);
-                        } else if (pred_grid[i][j] == 1) {
+                        if (pred_grid[i][j] == 1) {
                                 DrawRectangleRounded(square, ROUNDED, CELL_SIZE, PRED_LIVING);
                         } else {
                                 DrawRectangleRounded(square, ROUNDED, CELL_SIZE, PRED_DEAD);
                         }
                 }
         }
-        EndTextureMode();
-        BeginShaderMode(bloom);
-        DrawTextureRec(target.texture,
-                       (Rectangle){0, 0, (float)target.texture.width,
-                       (float)-target.texture.height},
-                       (Vector2){0, 0}, WHITE);
-        EndShaderMode();
+        EndMode2D();
         UpdateHelpDialog();
         EndDrawing();
-}
-
-void print_grid(std::vector<std::vector<int>> &grid) {
-        for (std::vector<int> &row : grid) {
-                // Fill the entire row (from its beginning to its end) with the value 0
-                // std::fill(row.begin(), row.end(), 0);
-                for (int &i : row) {
-                        std::cout << i << " ";
-                }
-                std::cout << std::endl;
-        }
 }
 #endif

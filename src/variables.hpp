@@ -9,7 +9,7 @@
 #define PRED_DEADR CLITERAL(Color){243, 139, 168, 100}  // rgb(243, 139, 168)
 #define PRED_DEAD CLITERAL(Color){88, 91, 112, 55}
 #define FPS 60
-#define INPUT_FPS 120
+#define INPUT_FPS 20
 #define CELL_SIZE 10
 #define MARGIN 3
 #define ROUNDED 0.5
